@@ -1,28 +1,73 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using WpfApp1.Models;
+using System.Linq;
 
 namespace WpfApp1.pages
 {
-    /// <summary>
-    /// Логика взаимодействия для Page2.xaml
-    /// </summary>
     public partial class Page2 : Page
     {
         public Page2()
         {
             InitializeComponent();
+
+            CmbColor.ItemsSource = new List<CarColor>
+            {
+                new CarColor { Name = "Белый", PriceModifier = 0, HexCode = "#FFFFFF" },
+                new CarColor { Name = "Черный Металлик", PriceModifier = 35000, HexCode = "#000000" },
+                new CarColor { Name = "Красный", PriceModifier = 50000, HexCode = "#FF0000" }
+            };
+
+
+            if (AppData.CurrentConfig.AvailableOptions.Count == 0)
+            {
+                AppData.CurrentConfig.AvailableOptions = new List<CarOption>
+                {
+                    new CarOption { Name = "Пакет 'Зима'", Price = 45000 },
+                    new CarOption { Name = "Премиум аудиосистема", Price = 90000 },
+                    new CarOption { Name = "Панорамная крыша", Price = 120000 }
+                };
+            }
+
+            ListOptions.ItemsSource = AppData.CurrentConfig.AvailableOptions;
+
+            CmbColor.SelectedItem = AppData.CurrentConfig.Color;
+
+            UpdatePrice();
+            CheckCompletion();
+        }
+
+        private void CmbColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            AppData.CurrentConfig.Color = CmbColor.SelectedItem as CarColor;
+            UpdatePrice();
+            CheckCompletion();
+        }
+
+        private void Option_CheckChanged(object sender, RoutedEventArgs e)
+        {
+            UpdatePrice();
+        }
+
+        private void UpdatePrice()
+        {
+            TxtCurrentPrice.Text = $"Текущая цена: {AppData.CurrentConfig.GetTotalPrice()} руб.";
+        }
+
+        private void CheckCompletion()
+        {
+            BtnNext.IsEnabled = AppData.CurrentConfig.Color != null;
+        }
+
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack(); 
+        }
+
+        private void BtnNext_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Page3()); 
         }
     }
 }

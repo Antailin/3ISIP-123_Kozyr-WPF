@@ -10,10 +10,10 @@ namespace WpfApp1.Models
     {
         public CarModel Model { get; set; }
         public Engine Engine { get; set; }
-        public string Color { get; set; }
+        public CarColor Color { get; set; }
         public decimal ColorPrice { get; set; }
         public List<CarOption> Options { get; set; } = new List<CarOption>();
-
+        public List<CarOption> AvailableOptions { get; set; } = new List<CarOption>();
 
         public double InitialPaymentPercent { get; set; } = 20; 
         public int LoanTermMonths { get; set; } = 24; 
@@ -57,6 +57,13 @@ namespace WpfApp1.Models
         public string Name { get; set; }
         public decimal Price { get; set; }
         public bool IsSelected { get; set; }
+    }
+    public class CarColor
+    {
+        public string Name { get; set; }
+        public string HexCode { get; set; } 
+        public decimal PriceModifier { get; set; }
+        public override string ToString() => Name;
     }
     public static class AppData
     {
