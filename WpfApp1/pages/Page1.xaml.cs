@@ -1,28 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using WpfApp1.Models; 
 
 namespace WpfApp1.pages
 {
-    /// <summary>
-    /// Логика взаимодействия для Page1.xaml
-    /// </summary>
     public partial class Page1 : Page
     {
         public Page1()
         {
             InitializeComponent();
+
+
+            CmbModel.ItemsSource = new List<CarModel>
+            {
+                new CarModel { Name = "Sedan X", BasePrice = 1500000 },
+                new CarModel { Name = "SUV Y", BasePrice = 2500000 }
+            };
+            CmbEngine.ItemsSource = new List<Engine>
+            {
+                new Engine { Type = "1.6L (110 л.с.)", PriceModifier = 0 },
+                new Engine { Type = "2.0L Turbo (190 л.с.)", PriceModifier = 150000 }
+            };
+
+
+            CheckCompletion();
+        }
+
+        private void CmbModel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            AppData.CurrentConfig.Model = CmbModel.SelectedItem as CarModel;
+            CheckCompletion();
+        }
+
+        private void CmbEngine_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            AppData.CurrentConfig.Engine = CmbEngine.SelectedItem as Engine;
+            CheckCompletion();
+        }
+
+        private void CheckCompletion()
+        {
+
+            BtnNext.IsEnabled = AppData.CurrentConfig.Model != null &&
+                                AppData.CurrentConfig.Engine != null;
+        }
+
+        private void BtnNext_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Page2());
+
         }
     }
 }
