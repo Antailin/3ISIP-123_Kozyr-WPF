@@ -8,6 +8,35 @@ namespace WpfApp1.Models
 {
     public class Core
     {
+        public CarModel Model { get; set; }
+        public Engine Engine { get; set; }
+        public string Color { get; set; }
+        public decimal ColorPrice { get; set; }
+        public List<CarOption> Options { get; set; } = new List<CarOption>();
+
+
+        public double InitialPaymentPercent { get; set; } = 20; 
+        public int LoanTermMonths { get; set; } = 24; 
+
+    
+        public string ClientName { get; set; }
+        public string ClientPhone { get; set; }
+        public string ClientEmail { get; set; }
+
+
+        public decimal GetTotalPrice()
+        {
+            decimal total = 0;
+            if (Model != null) total += Model.BasePrice;
+            if (Engine != null) total += Engine.PriceModifier;
+            total += ColorPrice;
+
+            foreach (var opt in Options)
+            {
+                if (opt.IsSelected) total += opt.Price;
+            }
+            return total;
+        }
     }
     public class CarModel
     {
