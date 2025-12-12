@@ -31,22 +31,22 @@ namespace WpfApp1.pages
         private void CmbModel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            AppData.CurrentConfig.Model = CmbModel.SelectedItem as CarModel;
+            AppData.CurrentConfig.SelectedModel = CmbModel.SelectedItem as CarModel;
             CheckCompletion();
         }
 
         private void CmbEngine_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            AppData.CurrentConfig.Engine = CmbEngine.SelectedItem as Engine;
+            AppData.CurrentConfig.SelectedEngine = CmbEngine.SelectedItem as Engine;
             CheckCompletion();
         }
 
         private void CheckCompletion()
         {
 
-            BtnNext.IsEnabled = AppData.CurrentConfig.Model != null &&
-                                AppData.CurrentConfig.Engine != null;
+            BtnNext.IsEnabled = AppData.CurrentConfig.SelectedModel != null &&
+                                AppData.CurrentConfig.SelectedEngine != null;
         }
 
         private void BtnNext_Click(object sender, RoutedEventArgs e)

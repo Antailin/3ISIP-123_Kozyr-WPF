@@ -32,7 +32,7 @@ namespace WpfApp1.pages
 
             ListOptions.ItemsSource = AppData.CurrentConfig.AvailableOptions;
 
-            CmbColor.SelectedItem = AppData.CurrentConfig.Color;
+            CmbColor.SelectedItem = AppData.CurrentConfig.SelectedColor;
 
             UpdatePrice();
             CheckCompletion();
@@ -40,7 +40,7 @@ namespace WpfApp1.pages
 
         private void CmbColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            AppData.CurrentConfig.Color = CmbColor.SelectedItem as CarColor;
+            AppData.CurrentConfig.SelectedColor = CmbColor.SelectedItem as CarColor;
             UpdatePrice();
             CheckCompletion();
         }
@@ -57,7 +57,7 @@ namespace WpfApp1.pages
 
         private void CheckCompletion()
         {
-            BtnNext.IsEnabled = AppData.CurrentConfig.Color != null;
+            BtnNext.IsEnabled = AppData.CurrentConfig.SelectedColor != null;
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)

@@ -1,70 +1,105 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 namespace WpfApp1.Models
 {
     public class Core
     {
-        public CarModel Model { get; set; }
-        public Engine Engine { get; set; }
-        public CarColor Color { get; set; }
-        public decimal ColorPrice { get; set; }
-        public List<CarOption> Options { get; set; } = new List<CarOption>();
+        public CarModel SelectedModel { get; set; }
+        public Engine SelectedEngine { get; set; }
+        public CarColor SelectedColor { get; set; }
+
         public List<CarOption> AvailableOptions { get; set; } = new List<CarOption>();
 
-        public double InitialPaymentPercent { get; set; } = 20; 
-        public int LoanTermMonths { get; set; } = 24; 
+        public decimal InitialPaymentPercent { get; set; } = 20m;
+        public int LoanTermMonths { get; set; } = 24;
 
-    
         public string ClientName { get; set; }
         public string ClientPhone { get; set; }
         public string ClientEmail { get; set; }
 
-
         public decimal GetTotalPrice()
         {
             decimal total = 0;
-            if (Model != null) total += Model.BasePrice;
-            if (Engine != null) total += Engine.PriceModifier;
-            total += ColorPrice;
+            if (SelectedModel != null) total += SelectedModel.BasePrice;
+            if (SelectedEngine != null) total += SelectedEngine.PriceModifier;
+            if (SelectedColor != null) total += SelectedColor.PriceModifier;
 
-            foreach (var opt in Options)
-            {
-                if (opt.IsSelected) total += opt.Price;
-            }
+            total += AvailableOptions.Where(o => o.IsSelected).Sum(o => o.Price);
+
             return total;
         }
+
+        public decimal CalculateMonthlyLoanPayment()
+        {
+            const decimal InterestRateYear = 0.15m;
+            decimal price = GetTotalPrice();
+
+            if (price <= 0 || LoanTermMonths == 0) return 0m;
+
+            decimal initialPaymentAmount = price * (InitialPaymentPercent / 100m);
+            decimal loanAmount = price - initialPaymentAmount;
+
+            decimal termYears = (decimal)LoanTermMonths / 12m;
+
+            decimal totalInterest = loanAmount * InterestRateYear * termYears;
+
+            decimal monthlyPayment = (loanAmount + totalInterest) / LoanTermMonths;
+
+            return monthlyPayment;
+        }
     }
+
     public class CarModel
     {
         public string Name { get; set; }
         public decimal BasePrice { get; set; }
-        public override string ToString() => $"{Name} - ({BasePrice} руб.)";
+        public override string ToString() => Name;
     }
 
     public class Engine
     {
-        public string Type { get; set; } 
+        public string Type { get; set; }
         public decimal PriceModifier { get; set; }
-        public override string ToString() => $"{Type} (+{PriceModifier} руб.)";
+        public override string ToString() => Type;
     }
 
-    public class CarOption
-    {
-        public string Name { get; set; }
-        public decimal Price { get; set; }
-        public bool IsSelected { get; set; }
-    }
     public class CarColor
     {
         public string Name { get; set; }
-        public string HexCode { get; set; } 
+        public string HexCode { get; set; }
         public decimal PriceModifier { get; set; }
         public override string ToString() => Name;
     }
+
+    public class CarOption : INotifyPropertyChanged
+    {
+        private bool _isSelected;
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set
+            {
+                if (_isSelected != value)
+                {
+                    _isSelected = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+    }
+
     public static class AppData
     {
         public static Core CurrentConfig { get; set; } = new Core();
