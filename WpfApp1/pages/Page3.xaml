@@ -21,7 +21,7 @@
             <TextBlock x:Name="TxtInitialPayment" Text="20%" FontWeight="Bold" Margin="0,0,0,20"/>
 
             <TextBlock Text="Срок кредита (мес.):" Margin="0,10,0,5"/>
-            <Slider x:Name="SliderTerm" Minimum="12" Maximum="60" Value="24"
+            <Slider x:Name="SliderTerm" Minimum="12" Maximum="96" Value="24"
                     TickFrequency="12" IsSnapToTickEnabled="True"
                     ValueChanged="OnSliderChanged" Width="400" HorizontalAlignment="Left"/>
 

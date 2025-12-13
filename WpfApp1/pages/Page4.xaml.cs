@@ -48,7 +48,7 @@ namespace WpfApp1.pages
             AppData.CurrentConfig.ClientPhone = TxtPhone.Text;
             AppData.CurrentConfig.ClientEmail = TxtEmail.Text;
 
-            NavigationService.Navigate(new Page5());
+            NavigationService.Navigate(new Page5_Summary());
         }
     }
 }
