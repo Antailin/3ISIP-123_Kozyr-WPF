@@ -21,27 +21,11 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const int TotalSteps = 5;
 
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new pages.Page1());
-        }
-
-        private void MainFrame_Navigated(object sender, NavigationEventArgs e)
-        {
-            int currentStep = 1;
-
-            if (e.Content is pages.Page1) currentStep = 1;
-            else if (e.Content is pages.Page2) currentStep = 2;
-            else if (e.Content is pages.Page3) currentStep = 3;
-            else if (e.Content is pages.Page4) currentStep = 4;
-            else if (e.Content is pages.Page5_Summary) currentStep = 5;
-
-            double progressValue = (double)currentStep / TotalSteps * 100;
-
-            AppProgressBar.Value = progressValue;
+            
         }
     }
 }
