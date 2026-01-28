@@ -1,0 +1,45 @@
+﻿<Page x:Class="WpfApp1.pages.AddsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1.pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddsPage">
+
+    <Grid Margin="10">
+        <StackPanel>
+            <TextBlock x:Name="TxtPizzaName" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
+
+            <GroupBox Header="Размер пиццы">
+                <StackPanel Margin="5">
+                    <RadioButton x:Name="RbSmall" Content="Маленькая (x1)" GroupName="Size" IsChecked="True" Checked="Size_Checked"/>
+                    <RadioButton x:Name="RbMedium" Content="Средняя (x1.2)" GroupName="Size" Checked="Size_Checked"/>
+                    <RadioButton x:Name="RbLarge" Content="Большая (x1.4)" GroupName="Size" Checked="Size_Checked"/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Дополнительные ингредиенты" Margin="0,10,0,0">
+                <StackPanel Margin="5">
+                    <ComboBox x:Name="CmbToppings" Margin="0,0,0,5"/>
+                    <Button Content="Добавить ингредиент" Click="BtnAddTopping_Click"/>
+                    <TextBlock Text="Выбранные добавки:" Margin="0,10,0,0" FontWeight="Bold"/>
+                    <ListBox x:Name="ListAddedToppings" Height="80"/>
+                </StackPanel>
+            </GroupBox>
+
+            <TextBlock x:Name="TxtTotal" Text="Итого: 0 ₽" FontSize="18" FontWeight="Bold" 
+                       HorizontalAlignment="Right" Margin="0,10,0,10" Foreground="Blue"/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Назад" Click="BtnBack_Click" Margin="0,0,5,0"/>
+                <Button Content="Оформить" Grid.Column="1" Click="BtnCheckout_Click" Margin="5,0,0,0"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Page>
