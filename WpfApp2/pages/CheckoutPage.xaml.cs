@@ -12,20 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfApp2.pages;
 
-
-namespace WpfApp2
+namespace WpfApp2.pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для CheckoutPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CheckoutPage : Page
     {
-        public MainWindow()
+        public CheckoutPage()
         {
             InitializeComponent();
-            MainFrame.Navigate(new ProductsPage());
         }
     }
 }
