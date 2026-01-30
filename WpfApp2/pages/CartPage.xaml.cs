@@ -42,7 +42,7 @@ namespace WpfApp2.pages
         }
 
         private void GoToCheckout_Click(object sender, RoutedEventArgs e)
-        {
+        { 
             NavigationService.Navigate(new CheckoutPage());
         }
 
