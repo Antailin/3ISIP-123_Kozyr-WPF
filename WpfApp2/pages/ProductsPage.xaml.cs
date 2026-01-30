@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp2;
 
 namespace WpfApp2.pages
 {
@@ -28,13 +29,33 @@ namespace WpfApp2.pages
 
         private void LoadProducts()
         {
+            ProductsPanel.Children.Clear();
             var products = Core.Context.Products.ToList();
 
             foreach (var product in products)
             {
-                var panel = new StackPanel { Margin = new Thickness(10), Width = 200 };
+                var card = new Border
+                {
+                    Margin = new Thickness(8),
+                    Padding = new Thickness(10),
+                    Background = Brushes.White,
+                    BorderBrush = Brushes.LightGray,
+                    BorderThickness = new Thickness(1),
+                    CornerRadius = new CornerRadius(6)
+                };
 
-                var img = new Image { Height = 150 };
+                var panel = new StackPanel();
+
+                // Фото — полностью видно, без обрезки
+                var img = new Image
+                {
+                    Height = 140,
+                    Width = 140,
+                    Stretch = Stretch.Uniform,          // полностью видно, пропорции сохранены
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Margin = new Thickness(0, 0, 0, 8)
+                };
+
                 if (!string.IsNullOrEmpty(product.Product_IMG))
                 {
                     try
@@ -44,28 +65,50 @@ namespace WpfApp2.pages
                     catch { }
                 }
 
-                var nameText = new TextBlock { Text = product.Product_Name ?? "No Name" };
-                var priceText = new TextBlock { Text = $"Price: {(product.Price ?? 0):C}" };
-                var addButton = new Button { Content = "Add to Cart", Tag = product };
-                addButton.Click += AddToCart_Click;
+                var name = new TextBlock
+                {
+                    Text = product.Product_Name ?? "Без названия",
+                    TextWrapping = TextWrapping.Wrap,
+                    TextAlignment = TextAlignment.Center,
+                    FontWeight = FontWeights.SemiBold,
+                    Margin = new Thickness(0, 0, 0, 4)
+                };
+
+                var price = new TextBlock
+                {
+                    Text = $"{(product.Price ?? 0):C}",
+                    FontSize = 15,
+                    Foreground = Brushes.DarkGreen,
+                    TextAlignment = TextAlignment.Center,
+                    Margin = new Thickness(0, 0, 0, 8)
+                };
+
+                var addBtn = new Button
+                {
+                    Content = "В корзину",
+                    Padding = new Thickness(12),
+                    HorizontalAlignment = HorizontalAlignment.Center
+                };
+
+                addBtn.Tag = product;
+                addBtn.Click += AddToCart_Click;
 
                 panel.Children.Add(img);
-                panel.Children.Add(nameText);
-                panel.Children.Add(priceText);
-                panel.Children.Add(addButton);
+                panel.Children.Add(name);
+                panel.Children.Add(price);
+                panel.Children.Add(addBtn);
 
-                ProductsList.Items.Add(panel);
+                card.Child = panel;
+                ProductsPanel.Children.Add(card);
             }
         }
 
         private void AddToCart_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            var product = button.Tag as Products;
-            if (product != null)
+            if (sender is Button btn && btn.Tag is Products product)
             {
                 Cart.Add(product);
-                MessageBox.Show($"{product.Product_Name} added!");
+                MessageBox.Show($"{product.Product_Name} добавлен в корзину");
             }
         }
 
@@ -75,4 +118,3 @@ namespace WpfApp2.pages
         }
     }
 }
-

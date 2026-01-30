@@ -23,6 +23,32 @@ namespace WpfApp2.pages
         public CartPage()
         {
             InitializeComponent();
+            CartList.ItemsSource = Cart.Items;
+        }
+
+        private void RemoveItem_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            if (button != null && button.Tag is int productId)
+            {
+                var item = Cart.Items.FirstOrDefault(i => i.Product.ID == productId);
+                if (item != null)
+                {
+                    Cart.Decrease(item.Product);
+                    CartList.ItemsSource = null;
+                    CartList.ItemsSource = Cart.Items;
+                }
+            }
+        }
+
+        private void GoToCheckout_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new CheckoutPage());
+        }
+
+        private void BackToProducts_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ProductsPage());
         }
     }
 }
