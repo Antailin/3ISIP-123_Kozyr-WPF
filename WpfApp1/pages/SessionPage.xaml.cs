@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace WpfApp1.pages
 {
     /// <summary>
-    /// Логика взаимодействия для SessionDetailsPage.xaml
+    /// Логика взаимодействия для SessionPage.xaml
     /// </summary>
-    public partial class SessionDetailsPage : Page
+    public partial class SessionPage : Page
     {
-        public SessionDetailsPage()
+        public SessionPage()
         {
             InitializeComponent();
         }

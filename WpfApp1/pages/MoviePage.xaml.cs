@@ -16,20 +16,19 @@ using System.Windows.Shapes;
 namespace WpfApp1.pages
 {
     /// <summary>
-    /// Логика взаимодействия для FilmListPage.xaml
+    /// Логика взаимодействия для MoviePage.xaml
     /// </summary>
-    public partial class FilmListPage : Page
+    public partial class MoviePage : Page
     {
-        private readonly MainWindow mainWindow;
+        public Films SelectedFilm { get; set; }
+        public List<Sessions> Sessions { get; set; }
+        public string GenresString { get; set; }
 
-        public FilmListPage(MainWindow main)
+        public MoviePage(Films film)
         {
             InitializeComponent();
-            mainWindow = main;
-        }
-        public void ApplyFilter(string searchText, ComboBoxItem sortItem)
-        {
-            
+            SelectedFilm = film;
+            DataContext = this;
         }
     }
 }

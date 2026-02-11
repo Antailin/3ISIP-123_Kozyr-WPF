@@ -16,24 +16,13 @@ using System.Windows.Shapes;
 namespace WpfApp1.pages
 {
     /// <summary>
-    /// Логика взаимодействия для ProfilePage.xaml
+    /// Логика взаимодействия для TicketPage.xaml
     /// </summary>
-    public partial class ProfilePage : Page
+    public partial class TicketPage : Page
     {
-        private readonly MainWindow mainWindow;
-        private readonly int userId;
-
-        public ProfilePage(MainWindow main)  
+        public TicketPage()
         {
             InitializeComponent();
-            mainWindow = main;
-            userId = main.GetCurrentUser();
-
-            if (userId == -1)
-            {
-                NavigationService?.GoBack();
-                return;
-            }
         }
     }
 }

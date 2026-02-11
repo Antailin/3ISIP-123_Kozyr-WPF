@@ -21,57 +21,11 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        private int currentUserId = -1;
-
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new FilmListPage(this));
-        }
-
-        public void SetCurrentUser(int userId)
-        {
-            currentUserId = userId;
-        }
-
-        public int GetCurrentUser() => currentUserId;
-
-        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (MainFrame.Content is FilmListPage filmList)
-            {
-                filmList.ApplyFilter(SearchBox.Text, SortCombo.SelectedItem as ComboBoxItem);
-            }
-        }
-
-        private void SortCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (MainFrame.Content is FilmListPage filmList)
-            {
-                filmList.ApplyFilter(SearchBox.Text, SortCombo.SelectedItem as ComboBoxItem);
-            }
-        }
-
-        private void ProfileButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (currentUserId == -1)
-            {
-                MainFrame.Navigate(new LoginPage(this));
-            }
-            else
-            {
-                MainFrame.Navigate(new ProfilePage(this));
-            }
-        }
-
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Navigate(new LoginPage(this));
-        }
-
-        private void RegisterButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Navigate(new RegisterPage(this));
+            MainFrame.Navigate(new MainPage());
         }
     }
 }
+        

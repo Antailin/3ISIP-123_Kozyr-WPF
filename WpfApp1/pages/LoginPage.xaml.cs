@@ -20,17 +20,9 @@ namespace WpfApp1.pages
     /// </summary>
     public partial class LoginPage : Page
     {
-        private readonly MainWindow mainWindow;
-
-        public LoginPage(MainWindow main)
+        public LoginPage()
         {
             InitializeComponent();
-            mainWindow = main;
-        }
-        private void Login_Click(object sender, RoutedEventArgs e)   // ← этот метод должен быть!
-        {
         }
     }
-
-
 }

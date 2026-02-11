@@ -20,12 +20,9 @@ namespace WpfApp1.pages
     /// </summary>
     public partial class RegisterPage : Page
     {
-        private readonly MainWindow mainWindow;
-
-        public RegisterPage(MainWindow main)
+        public RegisterPage()
         {
             InitializeComponent();
-            mainWindow = main;
         }
     }
 }

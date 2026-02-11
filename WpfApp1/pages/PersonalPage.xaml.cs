@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace WpfApp1.pages
 {
     /// <summary>
-    /// Логика взаимодействия для TicketPurchasePage.xaml
+    /// Логика взаимодействия для PersonalPage.xaml
     /// </summary>
-    public partial class TicketPurchasePage : Page
+    public partial class PersonalPage : Page
     {
-        public TicketPurchasePage()
+        public PersonalPage()
         {
             InitializeComponent();
         }
