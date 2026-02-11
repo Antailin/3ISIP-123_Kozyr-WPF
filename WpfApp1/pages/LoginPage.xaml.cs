@@ -24,5 +24,24 @@ namespace WpfApp1.pages
         {
             InitializeComponent();
         }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            var user = Core.Context.Users.FirstOrDefault(u => u.Username == UsernameTextBox.Text && u.Password == PasswordBox.Password); 
+            if (user != null)
+            {
+                MessageBox.Show("Вход выполнен успешно");
+                NavigationService.Navigate(new MainPage());
+            }
+            else
+            {
+                MessageBox.Show("Неверные учетные данные");
+            }
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new MainPage());
+        }
     }
 }

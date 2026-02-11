@@ -51,19 +51,19 @@ namespace WpfApp1.pages
             MoviesListView.ItemsSource = Movies;
         }
 
-        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             LoadMovies(SearchTextBox.Text, (SortComboBox.SelectedItem as ComboBoxItem)?.Content.ToString());
         }
 
-        private void SortButton_Click(object sender, RoutedEventArgs e)
+        private void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             LoadMovies(SearchTextBox.Text, (SortComboBox.SelectedItem as ComboBoxItem)?.Content.ToString());
         }
 
         private void PersonalPageButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            // Assume user is logged in, check later
             NavigationService.Navigate(new PersonalPage());
         }
 
@@ -85,4 +85,5 @@ namespace WpfApp1.pages
             }
         }
     }
+
 }
