@@ -24,5 +24,25 @@ namespace WpfApp1.pages
         {
             InitializeComponent();
         }
+
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        {
+            var newUser = new Users
+            {
+                Username = UsernameTextBox.Text,
+                Password = PasswordBox.Password, 
+                Email = EmailTextBox.Text,
+                FullName = FullNameTextBox.Text
+            };
+            Core.Context.Users.Add(newUser);
+            Core.Context.SaveChanges();
+            MessageBox.Show("Регистрация успешна");
+            NavigationService.Navigate(new MainPage());
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new MainPage());
+        }
     }
 }

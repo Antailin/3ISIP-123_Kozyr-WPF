@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:WpfApp1.pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="MainPage">
+      Title="MainPage" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -27,19 +27,30 @@
         <ListView x:Name="MoviesListView" Grid.Row="1" ItemsSource="{Binding Movies}" MouseDoubleClick="MoviesListView_MouseDoubleClick" Background="Transparent">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal"/>
+                    <WrapPanel Orientation="Horizontal" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}}"/>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Width" Value="200"/>
+                    <Setter Property="Height" Value="300"/>
+                    <Setter Property="Margin" Value="10"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border Background="White" BorderBrush="#DDDDDD" BorderThickness="1" Margin="10" Padding="10" CornerRadius="5">
-                        <StackPanel>
-                            <Image Source="{Binding CoverImage}" Width="100" Height="150"/>
-                            <TextBlock Text="{Binding Title}" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding Rating}"/>
-                            <TextBlock Text="{Binding ReleaseDate}"/>
-                            <TextBlock Text="{Binding AgeRating.Age}"/>
-                        </StackPanel>
+                    <Border Background="White" BorderBrush="#DDDDDD" BorderThickness="1" CornerRadius="5">
+                        <Grid>
+                            <Image Source="{Binding CoverImage}" Stretch="Fill"/>
+                            <Border Background="#80000000" VerticalAlignment="Bottom" Padding="10">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Title}" Foreground="White" FontWeight="Bold" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding Rating}" Foreground="White"/>
+                                    <TextBlock Text="{Binding ReleaseDate}" Foreground="White"/>
+                                    <TextBlock Text="{Binding AgeRating.Age}" Foreground="White"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
