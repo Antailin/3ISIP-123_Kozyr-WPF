@@ -12,25 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfApp1.pages;
 
-namespace WpfApp1
+namespace WpfApp1.pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для ConfiguratorPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ConfiguratorPage : Page
     {
-        public MainWindow()
+        public ConfiguratorPage()
         {
             InitializeComponent();
-            ConfiguratorFrame.Navigate(new ConfiguratorPage());
-            SavedFrame.Navigate(new SavedAssembliesPage());
-        }
-
-        private void SavedTab_GotFocus(object sender, RoutedEventArgs e)
-        {
-            SavedFrame.Navigate(new SavedAssembliesPage());
         }
     }
 }
