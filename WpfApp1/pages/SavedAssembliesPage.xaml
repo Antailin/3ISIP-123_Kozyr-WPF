@@ -13,8 +13,6 @@
             <ColumnDefinition Width="260"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
-        <!-- ===== ЛЕВАЯ ЧАСТЬ: список сборок ===== -->
         <Grid Grid.Column="0" Margin="0,0,8,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -41,8 +39,6 @@
                     Click="DeleteAssembly_Click"
                     Margin="0,6,0,0" Background="#F8D7DA"/>
         </Grid>
-
-        <!-- ===== ПРАВАЯ ЧАСТЬ: состав сборки ===== -->
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -61,11 +57,20 @@
             <ListView Grid.Row="2" x:Name="LvAssemblyParts">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Тип" Width="130"
+                        <GridViewColumn Header="" Width="54">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding ImageUrl}"
+                                           Width="44" Height="44"
+                                           Stretch="Uniform"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Тип" Width="120"
                                         DisplayMemberBinding="{Binding TypeName}"/>
-                        <GridViewColumn Header="Название" Width="200"
+                        <GridViewColumn Header="Название" Width="190"
                                         DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="Производитель" Width="130"
+                        <GridViewColumn Header="Производитель" Width="120"
                                         DisplayMemberBinding="{Binding Manufacturer}"/>
                         <GridViewColumn Header="Цена" Width="90"
                                         DisplayMemberBinding="{Binding PriceFormatted}"/>
@@ -81,4 +86,3 @@
         </Grid>
     </Grid>
 </Page>
-

@@ -37,6 +37,8 @@ namespace WpfApp1.pages
             InitializeComponent();
             LoadAssemblies();
         }
+
+
         private void LoadAssemblies()
         {
             LbAssemblies.ItemsSource = Core.Context.assembly_
@@ -54,13 +56,16 @@ namespace WpfApp1.pages
         {
             TxtAssemblyTitle.Text = a.name;
             TxtAssemblyAuthor.Text = $"Автор: {a.author}";
+
             var partIds = Core.Context.partassembly_
                 .Where(pa => pa.assemblyid == a.id)
                 .Select(pa => pa.partid)
                 .ToList();
+
             var parts = Core.Context.basepart_
                 .Where(bp => partIds.Contains(bp.id))
                 .ToList();
+
             var rows = parts.Select(bp =>
             {
                 var rawType = bp.parttype_?.name ?? "—";
@@ -74,11 +79,13 @@ namespace WpfApp1.pages
                     Name = bp.name,
                     Manufacturer = bp.manufacturer_?.name ?? "—",
                     PriceFormatted = bp.PriceFormatted,
-                    RawPrice = bp.price
+                    RawPrice = bp.price,
+                    ImageUrl = bp.image ?? ""  
                 };
             }).ToList();
 
             LvAssemblyParts.ItemsSource = rows;
+
             var total = rows.Sum(r => r.RawPrice);
             TxtSavedTotal.Text = $"{total:N0} ₽";
         }
@@ -99,13 +106,13 @@ namespace WpfApp1.pages
                         .Where(pa => pa.assemblyid == selected.id)
                         .ToList();
                     Core.Context.partassembly_.RemoveRange(linked);
-
                     Core.Context.assembly_.Remove(selected);
                     Core.Context.SaveChanges();
                     TxtAssemblyTitle.Text = "Выберите сборку слева";
                     TxtAssemblyAuthor.Text = "";
                     LvAssemblyParts.ItemsSource = null;
                     TxtSavedTotal.Text = "";
+
                     LoadAssemblies();
                 }
             }
@@ -117,7 +124,6 @@ namespace WpfApp1.pages
         }
     }
 
-
     public class SavedPartRow
     {
         public string TypeName { get; set; }
@@ -125,5 +131,20 @@ namespace WpfApp1.pages
         public string Manufacturer { get; set; }
         public string PriceFormatted { get; set; }
         public decimal RawPrice { get; set; }
+        public string ImageUrl { get; set; }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
