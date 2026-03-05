@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <TabControl>
+    <TabControl x:Name="MainTabControl" SelectionChanged="MainTabControl_SelectionChanged">
         <TabItem Header="🔧 Конфигуратор">
             <Frame x:Name="ConfiguratorFrame" NavigationUIVisibility="Hidden"/>
         </TabItem>
-        <TabItem Header="💾 Сохранённые сборки" GotFocus="SavedTab_GotFocus">
+        <TabItem Header="💾 Сохранённые сборки">
             <Frame x:Name="SavedFrame" NavigationUIVisibility="Hidden"/>
         </TabItem>
     </TabControl>

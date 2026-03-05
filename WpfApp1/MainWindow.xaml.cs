@@ -28,9 +28,10 @@ namespace WpfApp1
             SavedFrame.Navigate(new SavedAssembliesPage());
         }
 
-        private void SavedTab_GotFocus(object sender, RoutedEventArgs e)
+        private void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SavedFrame.Navigate(new SavedAssembliesPage());
+            if(e.Source is TabControl && MainTabControl.SelectedIndex == 1 && SavedFrame != null)
+        SavedFrame.Navigate(new SavedAssembliesPage());
         }
     }
 }
