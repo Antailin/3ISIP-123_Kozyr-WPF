@@ -7,20 +7,17 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ConfiguratorPage">
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="380"/>
+            <ColumnDefinition Width="400"/>
         </Grid.ColumnDefinitions>
-
         <Grid Grid.Column="0" Margin="8">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
             <Grid Grid.Row="0" Margin="0,0,0,4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -38,28 +35,34 @@
                           SelectionChanged="CmbManufacturer_SelectionChanged"
                           VerticalAlignment="Center"/>
             </Grid>
-
             <TextBox x:Name="TxtSearch" Grid.Row="1"
                      TextChanged="TxtSearch_TextChanged"
                      Margin="0,0,0,6"/>
-
             <ListView x:Name="LvParts" Grid.Row="2"
                       MouseDoubleClick="LvParts_DoubleClick">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Название" Width="190"
+                        <GridViewColumn Header="" Width="60">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding ImageUrl}"
+                                           Width="50" Height="50"
+                                           Stretch="Uniform"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Название" Width="170"
                                         DisplayMemberBinding="{Binding name}"/>
-                        <GridViewColumn Header="Производитель" Width="120"
+                        <GridViewColumn Header="Производитель" Width="110"
                                         DisplayMemberBinding="{Binding Manufacturer.name}"/>
-                        <GridViewColumn Header="Цена" Width="90"
+                        <GridViewColumn Header="Цена" Width="85"
                                         DisplayMemberBinding="{Binding PriceFormatted}"/>
-                        <GridViewColumn Header="Характеристики" Width="220"
+                        <GridViewColumn Header="Характеристики" Width="200"
                                         DisplayMemberBinding="{Binding Specs}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
         </Grid>
-
         <Grid Grid.Column="1" Margin="0,8,8,8">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -72,13 +75,21 @@
 
             <TextBlock Grid.Row="0" Text="Ваша сборка"
                        FontSize="15" FontWeight="Bold" Margin="0,0,0,6"/>
-
             <ListView x:Name="LvSelected" Grid.Row="1">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Тип" Width="75"
+                        <GridViewColumn Header="" Width="44">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding ImageUrl}"
+                                           Width="36" Height="36"
+                                           Stretch="Uniform"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Тип" Width="70"
                                         DisplayMemberBinding="{Binding TypeName}"/>
-                        <GridViewColumn Header="Название" Width="130"
+                        <GridViewColumn Header="Название" Width="110"
                                         DisplayMemberBinding="{Binding Name}"/>
                         <GridViewColumn Header="Цена" Width="70"
                                         DisplayMemberBinding="{Binding PriceFormatted}"/>
@@ -94,13 +105,11 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-
             <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,6,0,4">
                 <TextBlock Text="Итого: " FontSize="14" FontWeight="Bold"/>
                 <TextBlock x:Name="TxtTotal" FontSize="14"
                            FontWeight="Bold" Foreground="DarkGreen"/>
             </StackPanel>
-
             <Border x:Name="PnlErrors" Grid.Row="3"
                     Background="#FFF3CD" BorderBrush="#FFC107"
                     BorderThickness="1" CornerRadius="3"
@@ -113,10 +122,8 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </Border>
-
             <Button Grid.Row="4" Content="➕ Добавить выбранное (или двойной клик)"
                     Click="AddSelected_Click" Margin="0,0,0,6"/>
-
             <GroupBox Grid.Row="5" Header="Сохранить сборку">
                 <Grid Margin="4">
                     <Grid.RowDefinitions>
@@ -145,3 +152,4 @@
         </Grid>
     </Grid>
 </Page>
+

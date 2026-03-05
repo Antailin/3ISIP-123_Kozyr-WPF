@@ -25,6 +25,8 @@ namespace WpfApp1.pages
         private Dictionary<int, basepart_> _selectedParts = new Dictionary<int, basepart_>();
         private List<PartDisplayItem> _allParts = new List<PartDisplayItem>();
 
+        private bool _hasErrors = false;
+
         public ConfiguratorPage()
         {
             InitializeComponent();
@@ -59,7 +61,8 @@ namespace WpfApp1.pages
                 name = bp.name,
                 Manufacturer = bp.manufacturer_,
                 PriceFormatted = bp.PriceFormatted,
-                Specs = BuildSpecs(bp, type.name)
+                Specs = BuildSpecs(bp, type.name),
+                ImageUrl = bp.image  
             }).ToList();
 
             var manufacturers = _allParts
@@ -80,7 +83,6 @@ namespace WpfApp1.pages
 
             ApplyFilter();
         }
-
 
         private string BuildSpecs(basepart_ bp, string typeName)
         {
@@ -121,9 +123,9 @@ namespace WpfApp1.pages
                         {
                             var cooler = Core.Context.processorcooler_.Find(bp.id);
                             if (cooler == null) break;
-                            return $"Трубок: {cooler.heatpipes}, макс. {cooler.maxspeed} об/мин, {cooler.noiselevel} дБ";
+                            return $"Трубок: {cooler.heatpipes}, макс. {cooler.maxspeed} об/мин";
                         }
-                    case "psu":
+                    case "powersupply":
                         {
                             var p = Core.Context.powersupply_.Find(bp.id);
                             if (p == null) break;
@@ -199,7 +201,6 @@ namespace WpfApp1.pages
             TxtTotal.Text = $"{total:N0} ₽";
         }
 
-
         private void CheckCompatibility()
         {
             var errors = new List<string>();
@@ -220,9 +221,10 @@ namespace WpfApp1.pages
                     case "gpu": gpuObj = Core.Context.gpu_.Find(bp.id); break;
                     case "motherboard": mbObj = Core.Context.motherboard_.Find(bp.id); break;
                     case "ram": ramObj = Core.Context.ram_.Find(bp.id); break;
-                    case "cooler": coolerObj = Core.Context.processorcooler_.Find(bp.id); break;
-                    case "psu": psuObj = Core.Context.powersupply_.Find(bp.id); break;
+                    case "processorcooler": coolerObj = Core.Context.processorcooler_.Find(bp.id); break;
+                    case "powersupply": psuObj = Core.Context.powersupply_.Find(bp.id); break;
                     case "case": caseObj = Core.Context.case_.Find(bp.id); break;
+                    case "storagedevice": break;
                 }
             }
 
@@ -232,7 +234,6 @@ namespace WpfApp1.pages
                 var s2 = Core.Context.socket_.Find(mbObj.socketid);
                 errors.Add($"❌ Сокет процессора ({s1?.name}) не совпадает с сокетом материнской платы ({s2?.name}).");
             }
-
 
             if (coolerObj != null && mbObj != null)
             {
@@ -269,11 +270,14 @@ namespace WpfApp1.pages
                 errors.Add($"❌ Тип памяти ОЗУ ({t1?.name}) не совместим с материнской платой ({t2?.name}).");
             }
 
-            if (psuObj != null && gpuObj != null && gpuObj.recommendpower.HasValue
-                && psuObj.power < gpuObj.recommendpower.Value)
+            if (psuObj != null && gpuObj != null)
             {
-                errors.Add($"❌ Блок питания ({psuObj.power} Вт) не хватает для видеокарты (рекомендуется {gpuObj.recommendpower} Вт).");
+                if (gpuObj.recommendpower.HasValue && psuObj.power < gpuObj.recommendpower.Value)
+                    errors.Add($"❌ Блок питания ({psuObj.power} Вт) не хватает для видеокарты (рекомендуется {gpuObj.recommendpower} Вт).");
+                else if (gpuObj.recommendpower.HasValue && psuObj.power >= gpuObj.recommendpower.Value)
+                    errors.Add($"✅ Блок питания ({psuObj.power} Вт) достаточен для видеокарты (рекомендуется {gpuObj.recommendpower} Вт).");
             }
+            _hasErrors = errors.Any(err => err.StartsWith("❌"));
 
             IcErrors.ItemsSource = errors;
             PnlErrors.Visibility = errors.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
@@ -295,6 +299,16 @@ namespace WpfApp1.pages
             if (_selectedParts.Count == 0)
             {
                 MessageBox.Show("Добавьте хотя бы одно комплектующее.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (_hasErrors)
+            {
+                MessageBox.Show(
+                    "Невозможно сохранить сборку с ошибками совместимости.\nИсправьте конфликты и попробуйте снова.",
+                    "Ошибка совместимости",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
                 return;
             }
 
@@ -322,7 +336,6 @@ namespace WpfApp1.pages
         }
     }
 
-
     public class PartDisplayItem
     {
         public basepart_ Basepart { get; set; }
@@ -330,36 +343,16 @@ namespace WpfApp1.pages
         public manufacturer_ Manufacturer { get; set; }
         public string PriceFormatted { get; set; }
         public string Specs { get; set; }
+        public string ImageUrl { get; set; }
     }
 
     public class SelectedPartItem
     {
         public basepart_ Basepart { get; set; }
 
-        private static readonly Dictionary<string, string> TypeTranslations = new Dictionary<string, string>
-    {
-        { "cpu",          "Процессор" },
-        { "gpu",          "Видеокарта" },
-        { "motherboard",  "Материнская плата" },
-        { "ram",          "Оперативная память" },
-        { "psu",          "Блок питания" },
-        { "cooler",       "Кулер" },
-        { "case",         "Корпус" },
-        { "storage",      "Накопитель" }
-    };
-
-        public string TypeName
-        {
-            get
-            {
-                var rawName = Basepart?.parttype_?.name ?? "—";
-                if (TypeTranslations.TryGetValue(rawName.ToLower(), out var translated))
-                    return translated;
-                return rawName;
-            }
-        }
-
+        public string TypeName => Basepart?.parttype_?.name ?? "—";
         public string Name => Basepart?.name ?? "—";
         public string PriceFormatted => Basepart?.PriceFormatted ?? "—";
+        public string ImageUrl => Basepart?.image ?? "";
     }
 }
