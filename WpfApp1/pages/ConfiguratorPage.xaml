@@ -9,6 +9,139 @@
       Title="ConfiguratorPage">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="380"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Margin="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="0,0,0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Тип:" VerticalAlignment="Center"/>
+                <ComboBox x:Name="CmbPartType" Grid.Column="1"
+                          SelectionChanged="CmbPartType_SelectionChanged"
+                          VerticalAlignment="Center"/>
+                <Label Grid.Column="3" Content="Производитель:" VerticalAlignment="Center"/>
+                <ComboBox x:Name="CmbManufacturer" Grid.Column="4"
+                          SelectionChanged="CmbManufacturer_SelectionChanged"
+                          VerticalAlignment="Center"/>
+            </Grid>
+
+            <TextBox x:Name="TxtSearch" Grid.Row="1"
+                     TextChanged="TxtSearch_TextChanged"
+                     Margin="0,0,0,6"/>
+
+            <ListView x:Name="LvParts" Grid.Row="2"
+                      MouseDoubleClick="LvParts_DoubleClick">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Название" Width="190"
+                                        DisplayMemberBinding="{Binding name}"/>
+                        <GridViewColumn Header="Производитель" Width="120"
+                                        DisplayMemberBinding="{Binding Manufacturer.name}"/>
+                        <GridViewColumn Header="Цена" Width="90"
+                                        DisplayMemberBinding="{Binding PriceFormatted}"/>
+                        <GridViewColumn Header="Характеристики" Width="220"
+                                        DisplayMemberBinding="{Binding Specs}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+
+        <Grid Grid.Column="1" Margin="0,8,8,8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Ваша сборка"
+                       FontSize="15" FontWeight="Bold" Margin="0,0,0,6"/>
+
+            <ListView x:Name="LvSelected" Grid.Row="1">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Тип" Width="75"
+                                        DisplayMemberBinding="{Binding TypeName}"/>
+                        <GridViewColumn Header="Название" Width="130"
+                                        DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="Цена" Width="70"
+                                        DisplayMemberBinding="{Binding PriceFormatted}"/>
+                        <GridViewColumn Header="" Width="36">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="✕" Width="28" Height="22"
+                                            Tag="{Binding}"
+                                            Click="RemovePart_Click"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,6,0,4">
+                <TextBlock Text="Итого: " FontSize="14" FontWeight="Bold"/>
+                <TextBlock x:Name="TxtTotal" FontSize="14"
+                           FontWeight="Bold" Foreground="DarkGreen"/>
+            </StackPanel>
+
+            <Border x:Name="PnlErrors" Grid.Row="3"
+                    Background="#FFF3CD" BorderBrush="#FFC107"
+                    BorderThickness="1" CornerRadius="3"
+                    Margin="0,0,0,6" Visibility="Collapsed">
+                <ItemsControl x:Name="IcErrors" Margin="6">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" TextWrapping="Wrap" Margin="0,2"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
+
+            <Button Grid.Row="4" Content="➕ Добавить выбранное (или двойной клик)"
+                    Click="AddSelected_Click" Margin="0,0,0,6"/>
+
+            <GroupBox Grid.Row="5" Header="Сохранить сборку">
+                <Grid Margin="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Название:"/>
+                    <TextBox Grid.Row="0" Grid.Column="1"
+                             x:Name="TxtAssemblyName" Margin="0,2"/>
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="Автор:"/>
+                    <TextBox Grid.Row="1" Grid.Column="1"
+                             x:Name="TxtAuthor" Margin="0,2"/>
+
+                    <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                            Content="💾 Сохранить" Click="SaveAssembly_Click"
+                            Margin="0,6,0,0" Background="#D4EDDA"/>
+                </Grid>
+            </GroupBox>
+        </Grid>
     </Grid>
 </Page>
