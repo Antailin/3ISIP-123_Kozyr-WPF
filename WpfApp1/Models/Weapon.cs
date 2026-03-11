@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace WpfApp1.Models
 {
-    internal class Weapon
+    public class Weapon : Item
     {
+        public int AttackBonus { get; }
+
+        public Weapon(string name, int attackBonus, string imagePath) : base(name, $"бонус к атаке - {attackBonus}", imagePath)
+        {
+            AttackBonus = attackBonus;
+        }
     }
 }
