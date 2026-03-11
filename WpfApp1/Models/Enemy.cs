@@ -26,7 +26,7 @@ namespace WpfApp1.Models
             ImagePath = imagePath;
         }
 
-        public virtual int ClaculateDamage(Player player)
+        public virtual int CalculateDamage(Player player)
         {
             return Math.Max(1, AttackDMG - player.DefensePower);
         }
