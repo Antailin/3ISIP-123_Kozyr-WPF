@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WpfApp1.Models;
+using WpfApp1.Models.Bosses;
 
 namespace WpfApp1.Services
 {
@@ -38,10 +39,10 @@ namespace WpfApp1.Services
             int roll = _rnd.Next(4);
             switch (roll)
             {
-                case 0: return new BossVVG();
-                case 1: return new BossKovalsky();
-                case 2: return new BossArchimag();
-                case 3: return new BossPestov();
+                case 0: return new VVGBoss();
+                case 1: return new KovalskyBoss();
+                case 2: return new ArchmimagBoss();
+                case 3: return new PestovBoss();
                 default: return null;
             }
         }

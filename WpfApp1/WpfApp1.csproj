@@ -55,6 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Bosses\ArchmimagBoss.cs" />
+    <Compile Include="Models\Bosses\KovalskyBoss.cs" />
+    <Compile Include="Models\Bosses\PestovBoss.cs" />
+    <Compile Include="Models\Bosses\VVGBoss.cs" />
     <Compile Include="Services\CombatManager.cs" />
     <Compile Include="Services\EventGenerator.cs" />
     <Compile Include="Services\LootGenerator.cs" />
@@ -81,7 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Armor.cs" />
-    <Compile Include="Models\Boss.cs" />
     <Compile Include="Models\Enemy.cs" />
     <Compile Include="Models\Goblin.cs" />
     <Compile Include="Models\Item.cs" />

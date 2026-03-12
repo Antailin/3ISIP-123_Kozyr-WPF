@@ -9,18 +9,20 @@ namespace WpfApp1.Models
 {
     public abstract class Enemy
     {
-        public string Name { get; protected set; }
-        public int HP { get; protected set; }
-        public int AttackDMG { get; protected set; }
-        public int Defense { get; protected set; }
-        public string ImagePath { get; protected set; }
+        public string Name { get;  set; }
+        public int HP { get;  set; }
+        public int MaxHP { get; set; }
+        public int AttackDMG { get;  set; }
+        public int Defense { get; set; }
+        public string ImagePath { get; set; }
 
         public bool IsAlive => HP > 0;
 
-        protected Enemy(string name, int hP, int attackDMG, int defense, string imagePath)
+        protected Enemy(string name, int hp, int attackDMG, int defense, string imagePath)
         {
             Name = name;
-            HP = hP;
+            HP = hp;
+            MaxHP = hp; 
             AttackDMG = attackDMG;
             Defense = defense;
             ImagePath = imagePath;
