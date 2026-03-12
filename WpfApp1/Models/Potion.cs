@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace WpfApp1.Models
 {
-    internal class Potion
+    public class Potion : Item
     {
+        public Potion() : base("Зелье лечения", "Полностью восстанавливает HP", "Assets/potion.png")
+        {
+        }
     }
 }

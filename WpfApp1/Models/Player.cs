@@ -25,8 +25,8 @@ namespace WpfApp1.Models
         public Weapon Weapon { get; private set; }
         public Armor Armor { get; private set; }
 
-        public int AttackPower => Weapon.AttackBonus ?? 5;
-        public int DefensePower => Armor.DefendBonus ?? 0;
+        public int AttackPower => Weapon != null ? Weapon.AttackBonus : 5;
+        public int DefensePower => Armor != null ? Armor.DefenseBonus : 0;
 
         public bool IsFrozen = false;
         public bool IsDefending = false;

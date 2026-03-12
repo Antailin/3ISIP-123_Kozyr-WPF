@@ -13,7 +13,7 @@ namespace WpfApp1.Models.Bosses
 
         public PestovBoss() : base()
         {
-            Name = "";
+            Name = "Пестов С––";
             ImagePath = "";
             HP = (int)(HP * 1.3);
             MaxHP = HP;
