@@ -20,7 +20,7 @@ namespace WpfApp1.Models
         {
             int dmg = base.CalculateDamage(player);
             if (_rng.Next(100) < FreezeChance)
-            {
+            {   
                 player.IsFrozen = true;
             }
 
