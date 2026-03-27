@@ -13,10 +13,10 @@ namespace WpfApp1
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class pr_14Entities2 : DbContext
+    public partial class pr_14Entities : DbContext
     {
-        public pr_14Entities2()
-            : base("name=pr_14Entities2")
+        public pr_14Entities()
+            : base("name=pr_14Entities")
         {
         }
     
@@ -27,13 +27,13 @@ namespace WpfApp1
     
         public virtual DbSet<AgeRating> AgeRating { get; set; }
         public virtual DbSet<Classification> Classification { get; set; }
-        public virtual DbSet<FilmGenres> FilmGenres { get; set; }
         public virtual DbSet<Films> Films { get; set; }
         public virtual DbSet<Genres> Genres { get; set; }
         public virtual DbSet<Halls> Halls { get; set; }
         public virtual DbSet<Seats> Seats { get; set; }
         public virtual DbSet<SeatsSession> SeatsSession { get; set; }
         public virtual DbSet<Sessions> Sessions { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Tickets> Tickets { get; set; }
         public virtual DbSet<Users> Users { get; set; }
     }

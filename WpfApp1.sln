@@ -1,13 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36414.22
+VisualStudioVersion = 17.14.36414.22 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{1BF74F12-76B5-4119-A144-B89B1074F6AB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestAuth", "UnitTestAuth\UnitTestAuth.csproj", "{17778A4E-549D-45C7-86BA-C4DDE7B257AA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestReg", "UnitTestReg\UnitTestReg.csproj", "{EB0E1016-C2FB-4758-B969-870A68B4B684}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +15,6 @@ Global
 		{1BF74F12-76B5-4119-A144-B89B1074F6AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BF74F12-76B5-4119-A144-B89B1074F6AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BF74F12-76B5-4119-A144-B89B1074F6AB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{17778A4E-549D-45C7-86BA-C4DDE7B257AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{17778A4E-549D-45C7-86BA-C4DDE7B257AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{17778A4E-549D-45C7-86BA-C4DDE7B257AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{17778A4E-549D-45C7-86BA-C4DDE7B257AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EB0E1016-C2FB-4758-B969-870A68B4B684}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB0E1016-C2FB-4758-B969-870A68B4B684}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB0E1016-C2FB-4758-B969-870A68B4B684}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB0E1016-C2FB-4758-B969-870A68B4B684}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

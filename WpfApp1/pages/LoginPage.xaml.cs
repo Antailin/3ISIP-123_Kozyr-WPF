@@ -25,32 +25,18 @@ namespace WpfApp1.pages
             InitializeComponent();
         }
 
-        // Рефакторинг по заданию: метод Auth
-        public bool Auth(string username, string password)
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
-            {
-                MessageBox.Show("Поля обязательны для заполнения");
-                return false;
-            }
-
-            var user = Core.Context.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
+            var user = Core.Context.Users.FirstOrDefault(u => u.Username == UsernameTextBox.Text && u.Password == PasswordBox.Password); 
             if (user != null)
             {
                 MessageBox.Show("Вход выполнен успешно");
                 NavigationService.Navigate(new MainPage());
-                return true;
             }
             else
             {
                 MessageBox.Show("Неверные учетные данные");
-                return false;
             }
-        }
-
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
-        {
-            Auth(UsernameTextBox.Text, PasswordBox.Password);  // только вызов!
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
