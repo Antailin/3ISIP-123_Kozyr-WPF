@@ -8,6 +8,6 @@ namespace WpfApp1
 {
     internal class Core
     {
-        public static pr_14Entities Context = new pr_14Entities();
+        public static pr_14Entities2 Context = new pr_14Entities2();
     }
 }
