@@ -25,19 +25,40 @@ namespace WpfApp1.pages
             InitializeComponent();
         }
 
-        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        // Рефакторинг по заданию: метод Register
+        public bool Register(string username, string password, string email, string fullName)
         {
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password) ||
+                string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(fullName))
+            {
+                MessageBox.Show("Все поля обязательны для заполнения");
+                return false;
+            }
+
+            if (Core.Context.Users.Any(u => u.Username == username || u.Email == email))
+            {
+                MessageBox.Show("Пользователь с таким логином или email уже существует");
+                return false;
+            }
+
             var newUser = new Users
             {
-                Username = UsernameTextBox.Text,
-                Password = PasswordBox.Password, 
-                Email = EmailTextBox.Text,
-                FullName = FullNameTextBox.Text
+                Username = username,
+                Password = password,
+                Email = email,
+                FullName = fullName
             };
+
             Core.Context.Users.Add(newUser);
             Core.Context.SaveChanges();
             MessageBox.Show("Регистрация успешна");
             NavigationService.Navigate(new MainPage());
+            return true;
+        }
+
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        {
+            Register(UsernameTextBox.Text, PasswordBox.Password, EmailTextBox.Text, FullNameTextBox.Text);
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
