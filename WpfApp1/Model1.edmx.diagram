@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="acf31e45d8764d6db378a9bc164e2c13" Name="Diagram1">
+        <EntityTypeShape EntityType="pr_14Model.AgeRating" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="pr_14Model.Classification" Width="1.5" PointX="3.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="pr_14Model.FilmGenres" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="pr_14Model.Films" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="pr_14Model.Genres" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="pr_14Model.Halls" Width="1.5" PointX="6" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="pr_14Model.Seats" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="pr_14Model.SeatsSession" Width="1.5" PointX="10.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="pr_14Model.Sessions" Width="1.5" PointX="8.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="pr_14Model.Tickets" Width="1.5" PointX="13.5" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="pr_14Model.Users" Width="1.5" PointX="11.25" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="pr_14Model.FK_Films_AgeRating" ManuallyRouted="false" />
+        <AssociationConnector Association="pr_14Model.FK_Halls_Classification" ManuallyRouted="false" />
+        <AssociationConnector Association="pr_14Model.FK_FilmGenres_Films1" ManuallyRouted="false" />
+        <AssociationConnector Association="pr_14Model.FK_FilmGenres_Genres1" ManuallyRouted="false" />
+        <AssociationConnector Association="pr_14Model.FK_Sessions_Films" ManuallyRouted="false" />
+        <AssociationConnector Association="pr_14Model.FK_Seats_Halls" ManuallyRouted="false" />
+        <AssociationConnector Association="pr_14Model.FK_Sessions_Halls" ManuallyRouted="false" />
+        <AssociationConnector Association="pr_14Model.FK_SeatsSession_Seats" ManuallyRouted="false" />
+        <AssociationConnector Association="pr_14Model.FK_Tickets_Seats" ManuallyRouted="false" />
+        <AssociationConnector Association="pr_14Model.FK_SeatsSession_Sessions" ManuallyRouted="false" />
+        <AssociationConnector Association="pr_14Model.FK_Tickets_Sessions" ManuallyRouted="false" />
+        <AssociationConnector Association="pr_14Model.FK_Tickets_Users" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

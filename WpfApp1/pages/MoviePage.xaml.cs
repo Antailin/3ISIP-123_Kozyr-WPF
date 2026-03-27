@@ -12,20 +12,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfApp1.pages;
 
-namespace WpfApp1
+namespace WpfApp1.pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для MoviePage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MoviePage : Page
     {
-        public MainWindow()
+        public Films SelectedFilm { get; set; }
+        public List<Sessions> Sessions { get; set; }
+        public string GenresString { get; set; }
+
+        public MoviePage(Films film)
         {
             InitializeComponent();
-            MainFrame.Navigate(new MainPage());
+            SelectedFilm = film;
+            DataContext = this;
         }
     }
 }
-        
